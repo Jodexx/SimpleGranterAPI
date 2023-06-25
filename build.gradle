@@ -1,0 +1,48 @@
+plugins {
+    id 'java'
+}
+apply plugin: 'maven-publish'
+
+
+group = 'com.jodexindustries.simplegranter'
+version = '1.0.0'
+
+repositories {
+    mavenCentral()
+    maven {
+        name = "papermc-repo"
+        url = "https://repo.papermc.io/repository/maven-public/"
+    }
+}
+java {
+    withSourcesJar()
+    withJavadocJar()
+}
+
+dependencies {
+    compileOnly "com.destroystokyo.paper:paper-api:1.12.2-R0.1-SNAPSHOT"
+}
+publishing {
+    repositories {
+        maven {
+            name = "JodexIndustriesRepo"
+            url = "https://repo.jodexindustries.space/releases"
+            credentials(PasswordCredentials)
+            authentication {
+                basic(BasicAuthentication)
+            }
+        }
+    }
+    publications {
+        maven(MavenPublication) {
+            groupId = "com.jodexindustries.simplegranter"
+            artifactId = "SimpleGranterAPI"
+            version = project.version
+            from components.java
+        }
+    }
+}
+javadoc {
+    options.links('https://docs.oracle.com/javase/8/docs/api/', "https://helpch.at/docs/1.16.5/")
+    source = sourceSets.main.allJava
+}
