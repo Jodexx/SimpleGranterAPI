@@ -25,7 +25,7 @@ dependencies {
 publishing {
     repositories {
         maven {
-            name = "JodexIndustriesRepo"
+            name = "JodexIndustries"
             url = "https://repo.jodexindustries.space/releases"
             credentials(PasswordCredentials)
             authentication {
